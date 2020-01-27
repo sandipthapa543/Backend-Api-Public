@@ -115,14 +115,33 @@ class Users {
     }
 
     // eslint-disable-next-line class-methods-use-this
-    meUser(req, res) {
-        users.findOne(req.params.id, (error, result) => {
-            if (error) {
-                res.status(400).json(error);
-            } else {
-                res.status(201).json(result);
+    userMe(req,res){
+        let token = req.headers['x-access-token'] || req.headers.authorization;
+
+        if (token) {
+            if (token.startsWith('Bearer')) {
+                token = token.slice(7, token.length);
             }
-        });
+            // eslint-disable-next-line consistent-return
+            jwt.verify(token, config.secret, (erorr, decoded) => {
+                if (erorr) {
+                    return res.json({
+                        sucess: false,
+                        message: 'Token is not valid',
+                    });
+                }
+                else{
+                    res.status(200).send(decoded.data)
+                }
+
+
+
+            });
+
+
+        }
+
+
     }
 }
 
