@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const users = require('../model/users');
+const users = require('../model/userModel');
 const config = require('../config');
 
 
@@ -31,7 +31,7 @@ class Users {
             address: req.body.address,
         };
 
-        users.create(userData, (error, result) => {
+        users.create(userData,(error,result) => {
             if (error) {
                 res.status(400).json('cannot find');
             } if (result) {

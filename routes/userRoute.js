@@ -11,9 +11,9 @@ const checkToken = require('../middleware/auth');
 const router = express.Router();
 
 //* import userController file from controller package
-const UsersController = require('../controller/usersController');
+const usersController = require('../controller/usersController');
 
-const usersDetails = new UsersController();
+const usersDetails = new usersController();
 
 
 const validateAllFields = () => [
@@ -84,7 +84,7 @@ router.post('/SignUp', validateAllFields(), (req, res) => {
 //* get api router
 router.get('/admin', [checkToken, usersDetails.userList]);
 
-router.get('/me',usersDetails.userMe);
+router.get('/me',checkToken,usersDetails.userMe);
 
 //* update api router
 

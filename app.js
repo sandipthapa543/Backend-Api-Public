@@ -10,7 +10,7 @@ const app = express();
 // *server setup
 
 
-app.listen(8000);
+app.listen(3000);
 
 app.use(express.json());
 
@@ -34,5 +34,8 @@ mongoose.connect('mongodb://localhost:27017/automobile',
 
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
+
+const usersRoute = require('./routes/userRoute');
+app.use('/users', usersRoute);
 
 module.exports = app;

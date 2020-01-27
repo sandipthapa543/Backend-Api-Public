@@ -9,8 +9,6 @@ const userSchema = new Schema({
 
     //* Attribute of user schema in mongodb
 
-    _id: mongoose.Schema.Types.ObjectId,
-
     profileImage: {
         type: String,
         required: false,
