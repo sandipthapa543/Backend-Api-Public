@@ -84,8 +84,7 @@ router.post('/SignUp', validateAllFields(), (req, res) => {
 //* get api router
 router.get('/admin', [checkToken, usersDetails.userList]);
 
-router.get('/me', [checkToken, usersDetails.meUser]);
-
+router.get('/me',usersDetails.userMe);
 
 //* update api router
 
