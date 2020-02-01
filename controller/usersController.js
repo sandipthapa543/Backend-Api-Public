@@ -45,6 +45,7 @@ class Users {
 
     // eslint-disable-next-line class-methods-use-this
     logIn(req, res) {
+        console.log(req.body)
         const userValidation = {
             email: req.body.email,
             password: req.body.password,
@@ -54,6 +55,11 @@ class Users {
         //* verify user attempt to login
         // eslint-disable-next-line consistent-return
         users.findOne({ email: userValidation.email }).exec((error, result) => {
+            if( !error && !result) {
+                res.status(400).json(
+                    {success: false, message: "Username and password does not match."}
+                )
+            }
             if (error) {
                 return res.status(400).json(
                     {
@@ -63,11 +69,13 @@ class Users {
                 );
             }
             if (result) {
+                console.log('Entered')
                 bcrypt.compare(userValidation.password, result.password, (err, response) => {
                     if (response) {
                         const token = jwt.sign({ data: result }, config.secret, { expiresIn: '24h' });
                         res.status(200).json({
-                            token,
+                            status:"Login success!",
+                            token
                         });
                     } else {
                         res.status(400).json({

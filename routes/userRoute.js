@@ -93,6 +93,6 @@ router.put('/:id', [checkToken, validateAllFields(), usersDetails.updateUser]);
 //* delete api router
 router.delete('/:id', [checkToken, usersDetails.deleteUser]);
 
-router.post('/login', [validateAllFields(), usersDetails.logIn]);
+router.post('/login', usersDetails.logIn);
 //* export router to another package
 module.exports = router;
