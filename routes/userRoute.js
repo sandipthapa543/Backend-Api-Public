@@ -88,7 +88,7 @@ router.get('/me',checkToken,usersDetails.userMe);
 
 //* update api router
 
-router.put('/:id', [checkToken, validateAllFields(), usersDetails.updateUser]);
+router.put('/edit/:id', [checkToken, usersDetails.updateUser]);
 
 //* delete api router
 router.delete('/:id', [checkToken, usersDetails.deleteUser]);
