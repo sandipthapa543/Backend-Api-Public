@@ -53,9 +53,19 @@ mongoose.connect('mongodb://localhost:27017/automobile',
     .catch(() => { console.error('error connecting......'); });
 
 app.use(bodyParser.json());
+
 app.use(express.urlencoded({ extended: true }));
+app.use('/static', express.static('public/uploads'))
 
 const usersRoute = require('./routes/userRoute');
+const productRoute = require('./routes/productRoute')
+const brandRoute = require('./routes/brandRoute')
+const cartRoute = require('./routes/cartRoute')
+
+
 app.use('/users', usersRoute);
+app.use('/product', productRoute);
+app.use('/brand', brandRoute);
+app.use('/cart', cartRoute);
 
 module.exports = app;

@@ -35,7 +35,10 @@ class Users {
             if (error) {
                 res.status(400).json('cannot find');
             } if (result) {
-                res.status(201).json('successful signup');
+                res.status(201).json(
+
+                    { message:'successful signup'}
+                    );
             }
         });
     }
@@ -45,7 +48,6 @@ class Users {
 
     // eslint-disable-next-line class-methods-use-this
     logIn(req, res) {
-        console.log(req.body)
         const userValidation = {
             email: req.body.email,
             password: req.body.password,
@@ -73,13 +75,14 @@ class Users {
                 bcrypt.compare(userValidation.password, result.password, (err, response) => {
                     if (response) {
                         const token = jwt.sign({ data: result }, config.secret, { expiresIn: '24h' });
+                        const id = users._id
                         res.status(200).json({
                             status:"Login success!",
-                            token
+                        token,id
                         });
                     } else {
                         res.status(400).json({
-                            sucess: false,
+                            success: false,
                             message: 'Invalid Password.',
                         });
                     }
@@ -92,16 +95,14 @@ class Users {
     // eslint-disable-next-line class-methods-use-this
     updateUser(req, res) {
         const userUpdate = {
-            first_Name: req.body.firstName,
-            last_Name: req.body.lastName,
-            email: req.body.email,
-            password: req.body.password,
+            first_Name: req.body.first_Name,
+            last_Name: req.body.last_Name,
             phone: req.body.phone,
             address: req.body.address,
         };
 
         //* Users is searched by Id to edit
-        users.findByIdAndUpdate(req.params.id, userUpdate, (error, result) => {
+        users.findOneAndUpdate({_id: req.params.id}, userUpdate, (error, result) => {
             if (error) {
                 res.status(400).json(error);
             } else {
@@ -141,9 +142,6 @@ class Users {
                 else{
                     res.status(200).send(decoded.data)
                 }
-
-
-
             });
 
 
