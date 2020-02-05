@@ -6,10 +6,10 @@ const { Schema } = mongoose;
 
 const productSchema = new Schema({
 
-    productImage: [{
+    productImage: {
         type: String,
         required: true,
-    }],
+    },
 
     productName: {
         type: String,
@@ -17,7 +17,7 @@ const productSchema = new Schema({
 
     },
     brandId: {
-        type: mongoose.SchemaTypes.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Brand',
     },
 
@@ -57,8 +57,8 @@ class ProductModel {
         return new Promise((resolve, reject) => {
             Product.find()
                 .populate('brandId')
-                .limit(parseInt(perPage))
-                .skip(parseInt(page))
+                // .limit(parseInt(perPage))
+                // .skip(parseInt(page))
                 .exec(function (err, course) {
                     if (err) {
                         reject(err);
@@ -83,6 +83,21 @@ class ProductModel {
 
     }
 
+
+    getProductByBrand  (brandsId) {
+         console.log(brandsId)
+        return new Promise((resolve, reject)=> {
+            Product.find({})
+                .exec(function(error, response) {
+                if(error){
+                    reject(error);
+                }
+                else {
+                    resolve(response)
+                }
+            });
+        })
+    }
     updateProductsDetail  (courseId, courseData) {
         return new Promise((resolve, reject)=> {
             Product.findByIdAndUpdate(courseId, courseData,(error, response) => {

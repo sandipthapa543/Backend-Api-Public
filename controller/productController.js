@@ -4,26 +4,21 @@ const ProductModel = new productModel()
 
 class ProductDetails {
     productList (req, res) {
-        let limit = req.query.limit && req.query.limit <= 100 ? parseInt(req.query.limit) : 10;
-        let filters = req.filters
-        let page = 0;
-        if (req.query) {
-            if(req.query.name){
-                filters = req.query.filters
-            }
-            if (req.query.page) {
-                req.query.page = parseInt(req.query.page);
-                page = Number.isInteger(req.query.page) ? req.query.page : 0;
-            }
-        }
+        // let limit = req.query.limit && req.query.limit <= 100 ? parseInt(req.query.limit) : 10;
+        // let filters = req.filters
+        // let page = 0;
+        // if (req.query) {
+        //     if(req.query.name){
+        //         filters = req.query.filters
+        //     }
+        //     if (req.query.page) {
+        //         req.query.page = parseInt(req.query.page);
+        //         page = Number.isInteger(req.query.page) ? req.query.page : 0;
+        //     }
+        // }
         ProductModel.getAllProducts(limit, page, filters)
             .then((result) => {
-                res.status(200).json({
-                    count: result.length,
-                    next: result.length === limit ? '' : '',
-                    prev: '',
-                    result: result
-                });
+                res.status(200).json({result});
             })
     }
     createNewProduct (req, res) {
@@ -53,6 +48,15 @@ class ProductDetails {
             });
     }
 
+    listProductBrand(req,res){
+        ProductModel.getProductByBrand(req.params.brandId)
+            .then((response)=> {
+                res.status(201).json(response);
+            })
+            .catch((error)=> {
+                console.log(error)
+            })
+    }
 
     deleteProduct (req, res) {
         ProductModel.deleteProducts(req.params.id)
