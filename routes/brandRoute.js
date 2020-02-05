@@ -37,7 +37,7 @@ router.post('/',  uploads.any(), validateAllFields(), (req, res) => {
 });
 
 //* get api router
-router.get('/', brandDetails.brandList);
+router.get('/all', brandDetails.brandList);
 
 
 //* update api router

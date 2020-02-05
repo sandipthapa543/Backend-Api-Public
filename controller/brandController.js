@@ -2,8 +2,9 @@ const brandModel = require("../model/brandModel") ;
 const BrandModel = new brandModel()
 
 
-class BrandDetails {
+class BrandDetails{
     brandList (req, res) {
+        console.log("check")
         let limit = req.query.limit && req.query.limit <= 100 ? parseInt(req.query.limit) : 10;
         let filters = req.filters
         let page = 0;
@@ -18,12 +19,7 @@ class BrandDetails {
         }
         BrandModel.getAllBrands(limit, page, filters)
             .then((result) => {
-                res.status(200).json({
-                    count: result.length,
-                    next: result.length === limit ? '' : '',
-                    prev: '',
-                    result: result
-                });
+                res.status(200).json(result);
             })
     }
     createNewBrand (req, res) {
@@ -59,4 +55,4 @@ class BrandDetails {
 
 
 }
-module.exports = BrandDetails
+module.exports = BrandDetails;
