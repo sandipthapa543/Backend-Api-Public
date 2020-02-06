@@ -98,6 +98,21 @@ class ProductModel {
             });
         })
     }
+
+    findProductById  (id) {
+         console.log(id)
+        return new Promise((resolve, reject)=> {
+            Product.findOne({_id: id})
+                .exec(function(error, response) {
+                if(error){
+                    reject(error);
+                }
+                else {
+                    resolve(response)
+                }
+            });
+        })
+    }
     updateProductsDetail  (courseId, courseData) {
         return new Promise((resolve, reject)=> {
             Product.findByIdAndUpdate(courseId, courseData,(error, response) => {

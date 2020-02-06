@@ -39,10 +39,12 @@ router.post('/', uploads.any(), validateAllFields(), (req, res) => {
 
 //* get api router
 router.get('/', productDetails.productList);
+//* get api router
+router.get('/:id', productDetails.findProduct);
 
+router.get('/brand/:brandId', productDetails.listProductBrand);
 
 //* update api router
-
 router.put('/:id', [checkToken, productDetails.updateProduct]);
 
 //* delete api router

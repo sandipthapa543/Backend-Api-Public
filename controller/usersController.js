@@ -79,6 +79,7 @@ class Users {
                         res.status(200).json({
                             status:"Login success!",
                         token,id
+
                         });
                     } else {
                         res.status(400).json({

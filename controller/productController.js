@@ -58,6 +58,16 @@ class ProductDetails {
             })
     }
 
+    findProduct(req,res){
+        ProductModel.findProductById(req.params.id)
+            .then((response)=> {
+                res.status(201).json(response);
+            })
+            .catch((error)=> {
+                console.log(error)
+            })
+    }
+
     deleteProduct (req, res) {
         ProductModel.deleteProducts(req.params.id)
             .then((result)=> {
