@@ -16,7 +16,7 @@ class ProductDetails {
         //         page = Number.isInteger(req.query.page) ? req.query.page : 0;
         //     }
         // }
-        ProductModel.getAllProducts(limit, page, filters)
+        ProductModel.getAllProducts()
             .then((result) => {
                 res.status(200).json({result});
             })
