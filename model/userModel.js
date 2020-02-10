@@ -9,10 +9,6 @@ const userSchema = new Schema({
 
     //* Attribute of user schema in mongodb
 
-    profileImage: {
-        type: String,
-        required: false,
-    },
 
     first_Name: {
         type: String,

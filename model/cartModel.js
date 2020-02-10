@@ -10,6 +10,10 @@ const cartSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Product'
     },
+    quantity:{
+        type:Number,
+        default:1,
+    },
 
     status: {
         type: String,
@@ -20,7 +24,6 @@ const cartSchema = new Schema({
     user: {
         type: String
     }
-
 });
 //* Creating Table in Database
 const Cart = mongoose.model('Cart', cartSchema);
@@ -28,8 +31,9 @@ const Cart = mongoose.model('Cart', cartSchema);
 class CartModel {
      getAllCarts  (perPage, page, filters)  {
         return new Promise((resolve, reject) => {
-            Cart.find({status: "Cart"})
-                .populate('user', 'product')
+            Cart.find()
+                .populate('product')
+                .where({status: filters ? filters.status || 'Cart' : 'Cart', user: filters ? filters.userId : ''})
                 .limit(parseInt(perPage))
                 .skip(parseInt(page))
                 .exec(function (err, course) {

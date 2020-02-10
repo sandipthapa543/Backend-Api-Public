@@ -17,8 +17,8 @@ const productSchema = new Schema({
 
     },
     brandId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Brand',
+        type: String,
+        required: true
     },
 
     productPrice: {
@@ -54,9 +54,12 @@ const Product = mongoose.model('Product', productSchema);
 module.exports = Product
 class ProductModel {
      getAllProducts (perPage, page, filters) {
+         let conditions = filters.brand ? { 'brandId': filters.brand} : {}
+         console.log(filters)
         return new Promise((resolve, reject) => {
-            Product.find()
-                .populate('brandId')
+            Product.
+            find({"productName" : { $regex: filters.search || '', $options: 'i' }})
+                .where(conditions)
                 // .limit(parseInt(perPage))
                 // .skip(parseInt(page))
                 .exec(function (err, course) {
@@ -85,7 +88,6 @@ class ProductModel {
 
 
     getProductByBrand  (brandsId) {
-         console.log(brandsId)
         return new Promise((resolve, reject)=> {
             Product.find({})
                 .exec(function(error, response) {
