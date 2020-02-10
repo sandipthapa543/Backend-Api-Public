@@ -4,9 +4,8 @@ const BrandModel = new brandModel()
 
 class BrandDetails{
     brandList (req, res) {
-        console.log("check")
         let limit = req.query.limit && req.query.limit <= 100 ? parseInt(req.query.limit) : 10;
-        let filters = req.filters
+        let filters = req.query || {}
         let page = 0;
         if (req.query) {
             if(req.query.name){
@@ -34,12 +33,7 @@ class BrandDetails{
             });
     }
     updateBrand (req, res) {
-        let courseData = {
-            courseCode: req.body.courseCode,
-            courseName: req.body.courseName
-        }
-
-        BrandModel.updateBrandsDetail(req.params.id, courseData)
+        BrandModel.updateBrandsDetail(req.params.id, req.body)
             .then((result) => {
                 res.status(201).send({id: result});
             });

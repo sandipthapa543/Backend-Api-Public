@@ -5,12 +5,9 @@ const CartModel = new cartModel();
 class CartDetails {
     cartList (req, res) {
         let limit = req.query.limit && req.query.limit <= 100 ? parseInt(req.query.limit) : 10;
-        let filters = req.filters
+        let filters = req.query
         let page = 0;
         if (req.query) {
-            if(req.query.name){
-                filters = req.query.filters
-            }
             if (req.query.page) {
                 req.query.page = parseInt(req.query.page);
                 page = Number.isInteger(req.query.page) ? req.query.page : 0;
@@ -35,11 +32,7 @@ class CartDetails {
             });
     }
     updateCart (req, res) {
-        let courseData = {
-            status: req.body.status,
-        }
-
-        CartModel.updateCartDetails(req.params.id, courseData)
+        CartModel.updateCartDetails(req.params.id, req.body)
             .then((result) => {
                 res.status(201).send({id: result});
             });

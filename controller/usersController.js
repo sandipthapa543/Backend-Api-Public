@@ -141,7 +141,15 @@ class Users {
                     });
                 }
                 else{
-                    res.status(200).send(decoded.data)
+                    users.findOne({_id: decoded.data._id})
+                    .then((result)=> {
+                        res.status(200).send(result)
+                    })
+                        .catch((err)=> {
+                            res.status(403).json({
+                                success: false
+                            })
+                        })
                 }
             });
 

@@ -11,8 +11,6 @@ app.use(cors({origin: '*'}));
 // *server setup
 
 
-app.listen(9000);
-
 app.use(express.json());
 app.use(function (req, res, next) {
 
@@ -67,5 +65,5 @@ app.use('/users', usersRoute);
 app.use('/product', productRoute);
 app.use('/brand', brandRoute);
 app.use('/cart', cartRoute);
-
+app.listen(9000);
 module.exports = app;

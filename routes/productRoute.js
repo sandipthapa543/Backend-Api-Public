@@ -42,7 +42,7 @@ router.get('/', productDetails.productList);
 //* get api router
 router.get('/:id', productDetails.findProduct);
 
-router.get('/brand/:brandId', productDetails.listProductBrand);
+router.get('/brand/:brandId', uploads.any(), productDetails.listProductBrand);
 
 //* update api router
 router.put('/:id', [checkToken, productDetails.updateProduct]);
