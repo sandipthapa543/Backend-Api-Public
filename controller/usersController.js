@@ -3,7 +3,6 @@ const bcrypt = require('bcryptjs');
 const users = require('../model/userModel');
 const config = require('../config');
 
-
 //* creating user class for RESTful API
 
 class Users {
@@ -150,16 +149,11 @@ class Users {
                                 success: false
                             })
                         })
-                }
-            });
-
-
+                    }
+                });
+            }
         }
-
-
     }
-}
-
 
 //* export class Users for Routing API
 module.exports = Users;

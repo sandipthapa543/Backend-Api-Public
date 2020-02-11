@@ -5,7 +5,6 @@ const { Schema } = mongoose;
 //* cart table schema in mongodb
 
 const cartSchema = new Schema({
-
     product: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Product'
@@ -30,10 +29,11 @@ const Cart = mongoose.model('Cart', cartSchema);
 
 class CartModel {
      getAllCarts  (perPage, page, filters)  {
+         let conditions = (filters.status || filters.userId) ? {status: filters ? filters.status || 'Cart' : 'Cart', user: filters ? filters.userId : ''} : {}
         return new Promise((resolve, reject) => {
             Cart.find()
                 .populate('product')
-                .where({status: filters ? filters.status || 'Cart' : 'Cart', user: filters ? filters.userId : ''})
+                .where(conditions)
                 .limit(parseInt(perPage))
                 .skip(parseInt(page))
                 .exec(function (err, course) {
@@ -41,7 +41,6 @@ class CartModel {
                         reject(err);
                     } else {
                         resolve(course);
-
                     }
                 })
         })

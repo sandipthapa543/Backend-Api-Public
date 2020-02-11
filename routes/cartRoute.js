@@ -28,7 +28,7 @@ const validateAllFields = () => [
 
 //* post  form api router
 // eslint-disable-next-line consistent-return
-router.post('/addto', checkToken,validateAllFields(), (req, res) => {
+router.post('/', checkToken,validateAllFields(), (req, res) => {
     const error = validationResult(req); //* field validation request
     if (!error.isEmpty()) {
         return res.status(400).json(error.array());
@@ -36,7 +36,16 @@ router.post('/addto', checkToken,validateAllFields(), (req, res) => {
     cartDetails.createNewCart(req, res);
 });
 
-//* get api router
+router.post('/addTo', checkToken,validateAllFields(), (req, res) => {
+    const error = validationResult(req); //* field validation request
+    if (!error.isEmpty()) {
+        return res.status(400).json(error.array());
+    }
+    cartDetails.createNewCart(req, res);
+});
+
+//*
+//get api router
 router.get('/', [checkToken, cartDetails.cartList]);
 
 //* update api router

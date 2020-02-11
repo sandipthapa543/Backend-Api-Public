@@ -1,7 +1,6 @@
 const cartModel = require("../model/cartModel") ;
 const CartModel = new cartModel();
 
-
 class CartDetails {
     cartList (req, res) {
         let limit = req.query.limit && req.query.limit <= 100 ? parseInt(req.query.limit) : 10;
@@ -13,9 +12,10 @@ class CartDetails {
                 page = Number.isInteger(req.query.page) ? req.query.page : 0;
             }
         }
+
         CartModel.getAllCarts(limit, page, filters)
             .then((result) => {
-                res.status(200).json(
+                res.status(200).send(
                     result
                 );
             })
