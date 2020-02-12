@@ -36,7 +36,7 @@ router.post('/', checkToken,validateAllFields(), (req, res) => {
     cartDetails.createNewCart(req, res);
 });
 
-router.post('/addTo', checkToken,validateAllFields(), (req, res) => {
+router.post('/', checkToken,validateAllFields(), (req, res) => {
     const error = validationResult(req); //* field validation request
     if (!error.isEmpty()) {
         return res.status(400).json(error.array());
