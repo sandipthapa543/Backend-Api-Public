@@ -10,7 +10,7 @@ const app = express();
 app.use(cors({origin: '*'}));
 // *server setup
 
-
+require('dotenv').config();
 app.use(express.json());
 app.use(function (req, res, next) {
 
@@ -37,7 +37,7 @@ const bodyParser = require('body-parser');
 
 
 //* connect mongodb
-mongoose.connect('mongodb://localhost:27017/automobile',
+mongoose.connect(process.env.Database,
     {
         useNewUrlParser: true,
         useUnifiedTopology: true,
