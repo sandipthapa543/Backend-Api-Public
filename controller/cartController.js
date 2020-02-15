@@ -34,7 +34,7 @@ class CartDetails {
     updateCart (req, res) {
         CartModel.updateCartDetails(req.params.id, req.body)
             .then((result) => {
-                res.status(201).send({id: result});
+                res.status(201).send({id: result,status:'successful'});
             });
     }
 

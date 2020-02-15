@@ -8,7 +8,6 @@ const brandSchema = new Schema({
 
     brandImage: {
         type: String,
-        required: true,
     },
 
     brandName: {
@@ -80,5 +79,5 @@ class BrandModel {
 
 }
 
-module.exports = BrandModel
+module.exports = BrandModel;
 
